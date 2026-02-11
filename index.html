@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Приглашение 💌</title>
+  <meta name="description" content="Все детали нашего свидания в одном месте." />
+  <style>
+    :root{
+      --bg1:#07070b;
+      --bg2:#0b0b14;
+      --card:rgba(255,255,255,.06);
+      --stroke:rgba(255,255,255,.10);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.72);
+      --muted2:rgba(255,255,255,.55);
+      --accent:#b7d7ff;
+      --good:#b8ffcf;
+      --warn:#ffe1a6;
+      --bad:#ffb7b7;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      color:var(--text);
+      background:
+        radial-gradient(900px 700px at 20% 10%, rgba(183,215,255,.14), transparent 60%),
+        radial-gradient(900px 700px at 80% 30%, rgba(184,255,207,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:860px;margin:0 auto;padding:26px 18px 60px}
+    .top{
+      display:flex; gap:14px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border-radius:999px;
+      background:rgba(255,255,255,.07);
+      border:1px solid var(--stroke);
+      color:var(--muted);
+      font-size:13px;
+      letter-spacing:.2px;
+      user-select:none;
+    }
+    h1{margin:8px 0 8px; font-size:30px; line-height:1.1}
+    .sub{margin:0; color:var(--muted); font-size:15px; line-height:1.5}
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:14px;
+    }
+    .card{
+      grid-column: span 12;
+      background:var(--card);
+      border:1px solid var(--stroke);
+      border-radius:var(--radius);
+      padding:16px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .card h2{margin:0 0 8px; font-size:16px; color:rgba(255,255,255,.9)}
+    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .kv{margin:0; color:var(--muted); line-height:1.6}
+    .kv b{color:rgba(255,255,255,.92)}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .count{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;
+    }
+    .count .box{
+      min-width:120px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+    }
+    .num{font-size:22px; font-weight:700; letter-spacing:.2px}
+    .lbl{font-size:12px; color:var(--muted2); margin-top:2px}
+    a{color:var(--accent); text-decoration:none}
+    a:hover{opacity:.9; text-decoration:underline}
+    .btns{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    button, .btn{
+      appearance:none; border:0; cursor:pointer;
+      padding:12px 14px; border-radius:14px;
+      background: rgba(183,215,255,.14);
+      border:1px solid rgba(183,215,255,.25);
+      color:rgba(255,255,255,.92);
+      font-weight:600;
+      letter-spacing:.2px;
+    }
+    button.secondary, .btn.secondary{
+      background: rgba(255,255,255,.06);
+      border:1px solid var(--stroke);
+      color:rgba(255,255,255,.86);
+      font-weight:600;
+    }
+    button:hover, .btn:hover{transform: translateY(-1px)}
+    button:active, .btn:active{transform: translateY(0)}
+    .two{grid-column: span 12}
+    @media (min-width:760px){
+      .two{grid-column: span 6}
+    }
+    .sep{height:1px;background:var(--stroke); margin:12px 0}
+    .small{font-size:12px;color:var(--muted2);line-height:1.5}
+    .secret{
+      display:none;
+      margin-top:10px;
+      padding:12px;
+      border-radius:14px;
+      border:1px dashed rgba(255,255,255,.18);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+    }
+    .inputrow{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:10px}
+    input{
+      width:min(320px,100%);
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid var(--stroke);
+      background: rgba(0,0,0,.25);
+      color: var(--text);
+      outline:none;
+    }
+    .status{margin-top:8px; font-size:13px; color:var(--muted2)}
+    footer{margin-top:18px;color:var(--muted2);font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- =========================
+         CONFIG: уже заполнено твоими данными
+         ========================= -->
+    <script>
+      const CONFIG = {
+        // Заголовки
+        title: "Свидание 💌",
+        subtitle: "Все детали в одном месте. Просто приходи — остальное я беру на себя 🙂",
+
+        // Дата/время события (местное): ISO "YYYY-MM-DDTHH:MM:SS"
+        dateTimeLocal: "2026-02-14T19:00:00",
+
+        // Место
+        placeName: "Екатеринбург",
+        addressLine: "проспект Ленина, 1",
+        mapsQuery: "Екатеринбург, проспект Ленина 1",
+
+        // Дресс-код / вайб
+        dressCode: "Что-то, в чём ты чувствуешь себя особенно красивой — ведь для меня ты красива каждый день ✨",
+        vibe: "Тёплый вечер, без спешки. Главное — хорошее настроение и ты рядом.",
+
+        // Плейлист (можно оставить пустым "")
+        playlistUrl: "",
+
+        // RSVP (если захочешь — потом впишешь)
+        telegramUser: "",
+        whatsappPhone: "",
+        email: "",
+
+        // Секретный блок: оставил включённым, но ты можешь выключить (enableSecret: false)
+        enableSecret: true,
+        secretCode: "1402",
+        secretTitle: "🔐 Маленький секрет",
+        secretText: "Если всё сложится по настроению — у меня есть небольшой сюрприз после встречи 😉",
+
+        // Длительность для календаря
+        calendarDurationMin: 120,
+      };
+    </script>
+
+    <div class="top">
+      <div>
+        <div class="badge">✨ мини-страница-приглашение</div>
+        <h1 id="hTitle">Свидание 💌</h1>
+        <p class="sub" id="hSubtitle">Все детали в одном месте.</p>
+      </div>
+      <div class="row">
+        <span class="pill" id="datePill">🕗 …</span>
+        <span class="pill" id="placePill">📍 …</span>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card two">
+        <h2>⏳ До встречи осталось</h2>
+        <p class="kv" id="countHint">Считаю…</p>
+        <div class="count">
+          <div class="box"><div class="num" id="d">—</div><div class="lbl">дней</div></div>
+          <div class="box"><div class="num" id="h">—</div><div class="lbl">часов</div></div>
+          <div class="box"><div class="num" id="m">—</div><div class="lbl">минут</div></div>
+          <div class="box"><div class="num" id="s">—</div><div class="lbl">секунд</div></div>
+        </div>
+        <div class="btns">
+          <a class="btn secondary" id="btnCalendar" href="#" target="_blank" rel="noopener">📅 Добавить в календарь</a>
+          <a class="btn secondary" id="btnShare" href="#" target="_blank" rel="noopener">🔗 Поделиться ссылкой</a>
+        </div>
+      </div>
+
+      <div class="card two">
+        <h2>📍 Где встречаемся</h2>
+        <p class="kv"><b id="placeName">—</b><br><span id="addressLine">—</span></p>
+        <div class="btns">
+          <a class="btn" id="btnMaps" href="#" target="_blank" rel="noopener">🗺️ Открыть в картах</a>
+          <a class="btn secondary" id="btnRoute" href="#" target="_blank" rel="noopener">🚶 Построить маршрут</a>
+        </div>
+        <div class="sep"></div>
+        <p class="small">Если вдруг опаздываешь — просто черкани “+10” 🙂</p>
+      </div>
+
+      <div class="card two">
+        <h2>🕗 Когда</h2>
+        <p class="kv" id="whenText">—</p>
+        <div class="sep"></div>
+        <p class="small">План гибкий: если захочется — продлим прогулкой.</p>
+      </div>
+
+      <div class="card two">
+        <h2>👗 Дресс-код</h2>
+        <p class="kv" id="dressText">—</p>
+        <div class="sep"></div>
+        <p class="small">Главное — чтобы тебе было комфортно.</p>
+      </div>
+
+      <div class="card">
+        <h2>🌙 Вайб</h2>
+        <p class="kv" id="vibeText">—</p>
+        <div class="btns" id="playlistWrap" style="display:none">
+          <a class="btn secondary" id="btnPlaylist" href="#" target="_blank" rel="noopener">🎶 Плейлист</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>✅ Подтвердить / написать</h2>
+        <p class="kv">Один тап — и откроется чат с готовым сообщением.</p>
+        <div class="btns" id="rsvpBtns"></div>
+        <div class="status" id="rsvpHint">Выбери удобный мессенджер.</div>
+
+        <div id="secretBlockWrap" style="display:none">
+          <div class="sep"></div>
+          <h2>🔐 Секрет</h2>
+          <p class="kv">Если тебе хочется “немного квеста” — введи код 😉</p>
+          <div class="inputrow">
+            <input id="codeInput" inputmode="numeric" placeholder="Ввести код…" />
+            <button class="secondary" id="codeBtn">Открыть</button>
+          </div>
+          <div class="status" id="codeStatus"></div>
+          <div class="secret" id="secretContent">
+            <div style="font-weight:700;margin-bottom:6px" id="secretTitle">🔐 Маленький секрет</div>
+            <div id="secretText">…</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Сделано с 💙. QR просто ведёт на эту страницу.
+    </footer>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const pad2 = (n) => String(n).padStart(2, "0");
+
+    function formatDateLocal(dt){
+      const d = new Date(dt);
+      const opts = { weekday:"short", year:"numeric", month:"short", day:"numeric" };
+      const datePart = d.toLocaleDateString("ru-RU", opts).replace(/\.$/,'');
+      const timePart = `${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
+      return `${datePart} • ${timePart}`;
+    }
+
+    function makeGoogleMapsLink(query){
+      return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+    }
+    function makeGoogleRouteLink(query){
+      return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(query)}`;
+    }
+
+    function makeICS({ title, location, startLocalISO, durationMin, description }){
+      const start = new Date(startLocalISO);
+      const end = new Date(start.getTime() + durationMin*60*1000);
+
+      const toICS = (d) => {
+        const y = d.getUTCFullYear();
+        const m = pad2(d.getUTCMonth()+1);
+        const da = pad2(d.getUTCDate());
+        const h = pad2(d.getUTCHours());
+        const mi = pad2(d.getUTCMinutes());
+        const s = pad2(d.getUTCSeconds());
+        return `${y}${m}${da}T${h}${mi}${s}Z`;
+      };
+
+      const ics =
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Date Invite//RU//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:${crypto.randomUUID()}
+DTSTAMP:${toICS(new Date())}
+DTSTART:${toICS(start)}
+DTEND:${toICS(end)}
+SUMMARY:${title}
+LOCATION:${location}
+DESCRIPTION:${description}
+END:VEVENT
+END:VCALENDAR`;
+
+      return "data:text/calendar;charset=utf-8," + encodeURIComponent(ics);
+    }
+
+    function buildRSVP(){
+      const wrap = $("rsvpBtns");
+      wrap.innerHTML = "";
+
+      const msgYes = encodeURIComponent("Да! Я в деле 🙂");
+      const msgMove = encodeURIComponent("Можно чуть позже/перенести? 🙂");
+
+      let any = false;
+
+      if (CONFIG.telegramUser){
+        any = true;
+        const a = document.createElement("a");
+        a.className = "btn";
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.href = `https://t.me/${CONFIG.telegramUser}?start=invite`;
+        a.textContent = "💬 Telegram";
+        wrap.appendChild(a);
+
+        const a2 = document.createElement("a");
+        a2.className = "btn secondary";
+        a2.target = "_blank";
+        a2.rel = "noopener";
+        a2.href = `https://t.me/share/url?url=&text=${msgYes}`;
+        a2.textContent = "✅ Сказать «да»";
+        wrap.appendChild(a2);
+      }
+
+      if (CONFIG.whatsappPhone){
+        any = true;
+        const a = document.createElement("a");
+        a.className = "btn";
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.href = `https://wa.me/${CONFIG.whatsappPhone}?text=${msgYes}`;
+        a.textContent = "🟢 WhatsApp «да»";
+        wrap.appendChild(a);
+
+        const a2 = document.createElement("a");
+        a2.className = "btn secondary";
+        a2.target = "_blank";
+        a2.rel = "noopener";
+        a2.href = `https://wa.me/${CONFIG.whatsappPhone}?text=${msgMove}`;
+        a2.textContent = "🕗 Перенести";
+        wrap.appendChild(a2);
+      }
+
+      if (CONFIG.email){
+        any = true;
+        const a = document.createElement("a");
+        a.className = "btn secondary";
+        a.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent("Свидание 💌")}&body=${msgYes}`;
+        a.textContent = "✉️ Email «да»";
+        wrap.appendChild(a);
+      }
+
+      $("rsvpHint").textContent = any
+        ? "Выбирай удобный вариант — я увижу сообщение."
+        : "Если хочешь — впиши в CONFIG telegramUser или whatsappPhone, чтобы появились кнопки.";
+    }
+
+    (function init(){
+      $("hTitle").textContent = CONFIG.title;
+      $("hSubtitle").textContent = CONFIG.subtitle;
+
+      const niceDate = formatDateLocal(CONFIG.dateTimeLocal);
+      $("datePill").textContent = "🕗 " + niceDate;
+
+      $("placeName").textContent = CONFIG.placeName;
+      $("addressLine").textContent = CONFIG.addressLine;
+      $("placePill").textContent = "📍 " + CONFIG.placeName;
+
+      $("whenText").innerHTML = `<b>${niceDate}</b><br>${CONFIG.placeName}, ${CONFIG.addressLine}`;
+
+      $("dressText").textContent = CONFIG.dressCode;
+      $("vibeText").textContent = CONFIG.vibe;
+
+      const mapsLink = makeGoogleMapsLink(CONFIG.mapsQuery);
+      const routeLink = makeGoogleRouteLink(CONFIG.mapsQuery);
+      $("btnMaps").href = mapsLink;
+      $("btnRoute").href = routeLink;
+
+      if (CONFIG.playlistUrl){
+        $("playlistWrap").style.display = "flex";
+        $("btnPlaylist").href = CONFIG.playlistUrl;
+      }
+
+      $("btnShare").href =
+        "https://t.me/share/url?url=" + encodeURIComponent(location.href) +
+        "&text=" + encodeURIComponent("Смотри детали тут 💌");
+
+      $("btnCalendar").href = makeICS({
+        title: CONFIG.title,
+        location: `${CONFIG.placeName}, ${CONFIG.addressLine}`,
+        startLocalISO: CONFIG.dateTimeLocal,
+        durationMin: CONFIG.calendarDurationMin,
+        description: `Детали: ${location.href}\nКарты: ${mapsLink}`
+      });
+
+      buildRSVP();
+
+      if (CONFIG.enableSecret){
+        $("secretBlockWrap").style.display = "block";
+        $("secretTitle").textContent = CONFIG.secretTitle;
+        $("secretText").textContent = CONFIG.secretText;
+
+        const check = () => {
+          const v = ($("codeInput").value || "").trim();
+          if (!v){
+            $("codeStatus").textContent = "Введи код 🙂";
+            $("codeStatus").style.color = "var(--muted2)";
+            return;
+          }
+          if (v === CONFIG.secretCode){
+            $("secretContent").style.display = "block";
+            $("codeStatus").textContent = "Открыто ✅";
+            $("codeStatus").style.color = "var(--good)";
+          } else {
+            $("secretContent").style.display = "none";
+            $("codeStatus").textContent = "Не-а 🙂 попробуй ещё раз";
+            $("codeStatus").style.color = "var(--bad)";
+          }
+        };
+
+        $("codeBtn").addEventListener("click", check);
+        $("codeInput").addEventListener("keydown", (e)=>{ if(e.key==="Enter") check(); });
+      }
+    })();
+
+    (function countdown(){
+      const target = new Date(CONFIG.dateTimeLocal).getTime();
+      const tick = () => {
+        const now = Date.now();
+        let diff = Math.max(0, target - now);
+
+        const sec = Math.floor(diff / 1000);
+        const days = Math.floor(sec / 86400);
+        const hours = Math.floor((sec % 86400) / 3600);
+        const mins = Math.floor((sec % 3600) / 60);
+        const secs = sec % 60;
+
+        $("d").textContent = days;
+        $("h").textContent = pad2(hours);
+        $("m").textContent = pad2(mins);
+        $("s").textContent = pad2(secs);
+
+        $("countHint").textContent = diff > 0 ? "Жду тебя 🙂" : "Это уже сегодня/уже началось 💫";
+      };
+
+      tick();
+      setInterval(tick, 1000);
+    })();
+  </script>
+</body>
+</html>
